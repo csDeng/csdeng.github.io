@@ -73,8 +73,8 @@
         }
       },
       donate: {
-        enable: true,
-        alipay: '/images/my/alipay.jpg',
+        enable: false,
+        alipay: 'false',
         wechat: '/images/my/wechat.jpg'
       },
       galleries: {
@@ -214,23 +214,11 @@
 </ul>
         
         
-          <section class="donate">
-  <div id="qrcode-donate">
-    <img   class="lazyload" data-original="/images/my/alipay.jpg" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg==" >
-  </div>
-  <div class="icon">
-    <a href="javascript:;" id="alipay"><i class="iconfont iconalipay"></i></a>
-    <a href="javascript:;" id="wechat"><i class="iconfont iconwechat-fill"></i></a>
-  </div>
-</section>
-        
         
         
       </section>
       
         <section class="comments">
-  
-    <div class="btn" id="comments-btn">查看评论</div>
   
   
 <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
@@ -242,11 +230,11 @@
       clientID: 'Iv1.c6ad5cf0ba9b39f0',
       clientSecret: '2bd4b36e7565b0857ac699ffc34b9d0e273c4748',
       id: window.location.pathname,
-      repo: 'csDeng.github.io',
+      repo: 'csdeng.github.io',
       owner: 'csDeng',
-      admin: 'csDeng'
+      admin: ''
     });
-    if ( true ) {
+    if ( false ) {
       $("#comments-btn").on("click", function () {
         $(this).hide();
         gitalk.render('gitalk');
@@ -296,6 +284,12 @@
   </div>
   
   
+  
+    <a href="https://support.qq.com/product/436205" target="_blank">
+      <div class="fab fab-tencent-chao">
+        <i class="iconfont iconcomment"></i>
+      </div>
+    </a>
   
   <div class="fab fab-up">
     <i class="iconfont iconcaret-up"></i>
