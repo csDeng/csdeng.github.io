@@ -1,0 +1,92 @@
+<!DOCTYPE html><html lang="zh-Hans"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta name="description" content="【面试题系列】Docker 专题"><meta name="keywords" content="docker,容器化开发"><meta name="author" content="CSJerry"><meta name="copyright" content="CSJerry"><title>【面试题系列】Docker 专题 | CSJerry's Blog</title><link rel="shortcut icon" href="/melody-favicon.ico"><link rel="stylesheet" href="/css/index.css?version=1.9.1"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@latest/css/font-awesome.min.css?version=1.9.1"><meta name="format-detection" content="telephone=no"><meta http-equiv="x-dns-prefetch-control" content="on"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  hexoVersion: '6.3.0'
+} </script><meta name="generator" content="Hexo 6.3.0"></head><body><i class="fa fa-arrow-right" id="toggle-sidebar" aria-hidden="true"></i><div id="sidebar" data-display="true"><div class="toggle-sidebar-info text-center"><span data-toggle="切换文章详情">切换站点概览</span><hr></div><div class="sidebar-toc"><div class="sidebar-toc__title">目录</div><div class="sidebar-toc__progress"><span class="progress-notice">你已经读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar"></div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%9F%BA%E7%A1%80%E7%9B%B8%E5%85%B3"><span class="toc-number">1.</span> <span class="toc-text">基础相关</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-Docker-%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="toc-number">1.1.</span> <span class="toc-text">1. Docker 是什么？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E9%95%9C%E5%83%8F%E6%98%AF%E4%BB%80%E4%B9%88"><span class="toc-number">1.2.</span> <span class="toc-text">2. 镜像是什么</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E5%AE%B9%E5%99%A8%E6%98%AF%E4%BB%80%E4%B9%88"><span class="toc-number">1.3.</span> <span class="toc-text">3. 容器是什么</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-%E6%95%B0%E6%8D%AE%E5%8D%B7%E6%98%AF%E4%BB%80%E4%B9%88"><span class="toc-number">1.4.</span> <span class="toc-text">4. 数据卷是什么</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-Docker-%E5%92%8C%E8%99%9A%E6%8B%9F%E6%9C%BA%E7%9A%84%E5%8C%BA%E5%88%AB%EF%BC%9F"><span class="toc-number">1.5.</span> <span class="toc-text">5. Docker 和虚拟机的区别？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-Docker-%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E6%9C%89%E5%93%AA%E4%BA%9B%EF%BC%9F"><span class="toc-number">1.6.</span> <span class="toc-text">6. Docker 常用命令有哪些？</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8E%9F%E7%90%86%E7%9B%B8%E5%85%B3"><span class="toc-number">2.</span> <span class="toc-text">原理相关</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-docker-%E6%9C%89%E5%87%A0%E7%A7%8D%E7%BD%91%E7%BB%9C%E6%A8%A1%E5%BC%8F"><span class="toc-number">2.1.</span> <span class="toc-text">1. docker 有几种网络模式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#host-%E6%A8%A1%E5%BC%8F"><span class="toc-number">2.1.1.</span> <span class="toc-text">host 模式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#container%E6%A8%A1%E5%BC%8F"><span class="toc-number">2.1.2.</span> <span class="toc-text">container模式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#none%E6%A8%A1%E5%BC%8F"><span class="toc-number">2.1.3.</span> <span class="toc-text">none模式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#bridge%E6%A8%A1%E5%BC%8F"><span class="toc-number">2.1.4.</span> <span class="toc-text">bridge模式</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-docker-%E7%BD%91%E7%BB%9C%E5%AE%9E%E7%8E%B0%E5%9C%A8Linux-%E4%B8%AD%E7%9A%84%E8%A1%A8%E7%8E%B0%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="toc-number">2.2.</span> <span class="toc-text">2. docker 网络实现在Linux 中的表现是什么？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">2.3.</span> <span class="toc-text"></span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#-1"><span class="toc-number">2.4.</span> <span class="toc-text"></span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-Docker-%E5%82%A8%E5%AD%98%E5%90%8E%E7%AB%AF%E6%9C%89%E5%93%AA%E5%87%A0%E7%A7%8D%E6%A8%A1%E5%BC%8F%EF%BC%9F"><span class="toc-number">2.5.</span> <span class="toc-text">3. Docker 储存后端有哪几种模式？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-Docker-%E7%9A%84%E5%BA%95%E5%B1%82%E6%8A%80%E6%9C%AF%E6%98%AF%E4%BB%80%E4%B9%88"><span class="toc-number">2.6.</span> <span class="toc-text">3. Docker 的底层技术是什么?</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%BA%94%E7%94%A8%E7%9B%B8%E5%85%B3"><span class="toc-number">3.</span> <span class="toc-text">应用相关</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E4%BB%8B%E7%BB%8D%E4%B8%80%E4%B8%8B-docker-%E7%9A%84%E7%BD%91%E7%BB%9C%E9%80%9A%E4%BF%A1"><span class="toc-number">3.1.</span> <span class="toc-text">1. 介绍一下 docker 的网络通信</span></a></li></ol></li></ol></div></div><div class="author-info hide"><div class="author-info__avatar text-center"><img src="/img/my/avater.jpg"></div><div class="author-info__name text-center">CSJerry</div><div class="author-info__description text-center"></div><div class="follow-button"><a target="_blank" rel="noopener" href="https://github.com/csDeng">follow</a></div><hr><div class="author-info-articles"><a class="author-info-articles__archives article-meta" href="/archives"><span class="pull-left">文章</span><span class="pull-right">2</span></a><a class="author-info-articles__tags article-meta" href="/tags"><span class="pull-left">标签</span><span class="pull-right">2</span></a><a class="author-info-articles__categories article-meta" href="/categories"><span class="pull-left">分类</span><span class="pull-right">2</span></a></div><hr><div class="author-info-links"><div class="author-info-links__title text-center">友人帐</div><a class="author-info-links__name text-center" target="_blank" rel="noopener" href="https://jackyu.cn/">Jacky's Blog</a><a class="author-info-links__name text-center" target="_blank" rel="noopener" href="https://amschen.cn/">Anino's Blog</a><a class="author-info-links__name text-center" target="_blank" rel="noopener" href="https://funcfang.cn/">手撕鸡翅的博客</a></div></div></div><div id="content-outer"><div id="top-container" style="background-image: url(/img/my/bg.jpg)"><div id="page-header"><span class="pull-left"> <a id="site-name" href="/">CSJerry's Blog</a></span><i class="fa fa-bars toggle-menu pull-right" aria-hidden="true"></i><span class="pull-right menus">   <a class="site-page" href="/">首页</a><a class="site-page" href="/archives">归档</a><a class="site-page" href="/tags">标签</a><a class="site-page" href="/categories">分类</a><a class="site-page" href="/about">关于</a></span><span class="pull-right"></span></div><div id="post-info"><div id="post-title">【面试题系列】Docker 专题</div><div id="post-meta"><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2022-11-14</time><span class="post-meta__separator">|</span><i class="fa fa-inbox post-meta__icon" aria-hidden="true"></i><a class="post-meta__categories" href="/categories/%E9%9D%A2%E8%AF%95%E9%A2%98/">面试题</a></div></div></div><div class="layout" id="content-inner"><article id="post"><div class="article-container" id="post-content"><h1 id="基础相关"><a href="#基础相关" class="headerlink" title="基础相关"></a>基础相关</h1><h2 id="1-Docker-是什么？"><a href="#1-Docker-是什么？" class="headerlink" title="1. Docker 是什么？"></a>1. Docker 是什么？</h2><p>Docker 是基于<strong>容器技术</strong>实现的，容器技术最开始是基于 Linux Container（简称 LXC）技术实现的，通过内核提供的 <strong>Namespace</strong> 和 <strong>Cgroup</strong> 机制，实现了对应用程序的<strong>隔离</strong>以及物理资源的<strong>分配</strong>。<br>Docker 在容器基础上发展出了一个完善的生态系统，它将容器视为一种打包格式，将应用程序所需的一切，比如依赖库、运行时环境等都集合在了在一起，使得<strong>一次构建，到处运行</strong>。<br>它将<strong>开发与运维</strong>很好的融合在一起。开发人员可以很轻松的<strong>构建、打包、推送和运行</strong>应用程序。而且还允许我们将容器视为部署单元，以<strong>模块化</strong>的方式发布，降低了系统的运维管理难度。</p>
+<h2 id="2-镜像是什么"><a href="#2-镜像是什么" class="headerlink" title="2. 镜像是什么"></a>2. 镜像是什么</h2><p>镜像就像是包含了操作系统的一张光碟，它是一个<strong>模板文件</strong>，除了提供容器运行时所需的程序、库、资源、配置等文件外，还包含了一些为运行时准备的一些配置参数（如匿名卷、环境变量、用户等）。<br>另外，镜像是一个<strong>分层</strong>的文件系统，通过一层层的组合，使得我们可以复用这些不同粒度的镜像文件。</p>
+<h2 id="3-容器是什么"><a href="#3-容器是什么" class="headerlink" title="3. 容器是什么"></a>3. 容器是什么</h2><blockquote>
+<p>容器的发展来源于我们码头的集装箱的思想，一次打包多方部署，简化上线流程。<br>简单地说，容器就是一个进程+进程的运行环境的简单整体。</p>
+</blockquote>
+<p>容器是镜像的运行实例，我们可以把镜像看成是一个个的构建块，容器根据这些构建块搭建起了一个隔离的，拥有整个包的应用程序。每一个容器都是一个<strong>标准化</strong>单元，确保了在不同机子上也能拥有一致的行为。</p>
+<h2 id="4-数据卷是什么"><a href="#4-数据卷是什么" class="headerlink" title="4. 数据卷是什么"></a>4. 数据卷是什么</h2><p>Docker 对数据持久化的解决方案，数据不会随着容器结束而丢失，通过将宿主机的某一文件目录挂载到容器里来实现。在 Docker 里提供了三种方法来实现目录的挂载：</p>
+<ul>
+<li>volumes<strong>：</strong> 属于 Docker 管理的目录，无需自己创建目录。</li>
+<li>bind mounts：自己指定的某个目录，需注意不同操作系统的文件路径格式。</li>
+<li>tmpfs：仅存储在主机系统的<strong>内存</strong>中，不会持久保存在磁盘上。容器可以使用它来共享简单状态或非敏感的信息</li>
+</ul>
+<h2 id="5-Docker-和虚拟机的区别？"><a href="#5-Docker-和虚拟机的区别？" class="headerlink" title="5. Docker 和虚拟机的区别？"></a>5. Docker 和虚拟机的区别？</h2><p>容器技术和虚拟机都提供了<strong>环境隔离</strong>的功能。不同的是。容器是运行在操作系统上的一个进程，它和其他应用程序是共享内核的，由<strong>操作系统</strong>提供虚拟化隔离功能；而虚拟机则是完完全全<strong>另</strong>起了个操作系统，将环境隔离的更加彻底。</p>
+<h2 id="6-Docker-常用命令有哪些？"><a href="#6-Docker-常用命令有哪些？" class="headerlink" title="6. Docker 常用命令有哪些？"></a>6. Docker 常用命令有哪些？</h2><p>容器生命周期管理: run、start&#x2F;stop&#x2F;restart、kill、rm、pause&#x2F;unpause<br>容器操作：ps、inspect、top<br>镜像仓库：login、pull、push、search<br>本地镜像管理：images、rmi、tag、build、history<br>例如，当我们需要运行一个容器时，则可以执行：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run  nginx:test</span><br></pre></td></tr></table></figure>
+<h1 id="原理相关"><a href="#原理相关" class="headerlink" title="原理相关"></a>原理相关</h1><h2 id="1-docker-有几种网络模式"><a href="#1-docker-有几种网络模式" class="headerlink" title="1. docker 有几种网络模式"></a>1. docker 有几种网络模式</h2><h3 id="host-模式"><a href="#host-模式" class="headerlink" title="host 模式"></a>host 模式</h3><p>在建一个容器时，一般会为容器分配一个独立的 <strong>Network Namespace</strong> 以进行网络隔离。如果我们使用了 <strong>Host</strong> 模式，则不再分配 Network Namespace，而是和<strong>宿主机</strong>共用一个 Network Namespace。此时容器将不再拥有自己的虚拟网卡、IP 和端口，而是和宿主机<strong>共用</strong>一个 IP 和端口。<br></p>
+<p><img src="/2022/11/14/interview-docker/image-20221114134350294.png" alt="image-20221114134350294"></p>
+<h3 id="container模式"><a href="#container模式" class="headerlink" title="container模式"></a>container模式</h3><p>这个模式指定新创建的容器和已经存在的一个容器共享一个 Network Namespace，而不是和宿主机共享。新创建的容器不会创建自己的网卡，配置自己的 IP，而是和一个指定的容器共享 IP、端口范围等。同样，两个容器除了网络方面，其他的如文件系统、进程列表等还是隔离的。两个容器的进程可以通过 lo 网卡设备通信。<br></p>
+<p><img src="/2022/11/14/interview-docker/image-20221114134424734.png" alt="image-20221114134424734"></p>
+<h3 id="none模式"><a href="#none模式" class="headerlink" title="none模式"></a>none模式</h3><p>使用none模式，Docker容器拥有自己的 Network Namespace，但是，并不为Docker容器进行任何网络配置。也就是说，这个Docker容器没有网卡、IP、路由等信息。需要我们自己为 Docker 容器添加网卡、配置IP等。<br>这种网络模式下容器只有lo回环网络，没有其他网卡。none模式可以在容器创建时通过<code>--network=none</code>来指定。这种类型的网络没有办法联网，封闭的网络能很好的保证容器的安全性。<br></p>
+<p><img src="/2022/11/14/interview-docker/image-20221114134448588.png" alt="image-20221114134448588"></p>
+<h3 id="bridge模式"><a href="#bridge模式" class="headerlink" title="bridge模式"></a>bridge模式</h3><p>Docker 在主机上会创建一个 docker0 的网桥，每当有容器要创建时，便会为容器分配一个独立的网卡，然后桥接到虚拟网桥上。这其实是一对虚拟网卡，一端放在容器里，另一端放在 docker0 网桥里。当一端有数据达到时，就会把数据包转发到另一端上，这就实现了网络通信。<br>bridge模式是docker的默认网络模式，不写–net参数，就是bridge模式。使用docker run -p时，docker实际是在iptables做了DNAT规则，实现端口转发功能。可以使用 iptables -t nat -vnL 查看。<br></p>
+<p><img src="/2022/11/14/interview-docker/image-20221114134505723.png" alt="image-20221114134505723"></p>
+<h2 id="2-docker-网络实现在Linux-中的表现是什么？"><a href="#2-docker-网络实现在Linux-中的表现是什么？" class="headerlink" title="2. docker 网络实现在Linux 中的表现是什么？"></a>2. docker 网络实现在Linux 中的表现是什么？</h2><h2 id><a href="#" class="headerlink" title></a></h2><h2 id="-1"><a href="#-1" class="headerlink" title></a></h2><h2 id="3-Docker-储存后端有哪几种模式？"><a href="#3-Docker-储存后端有哪几种模式？" class="headerlink" title="3. Docker 储存后端有哪几种模式？"></a>3. Docker 储存后端有哪几种模式？</h2><h2 id="3-Docker-的底层技术是什么"><a href="#3-Docker-的底层技术是什么" class="headerlink" title="3. Docker 的底层技术是什么?"></a>3. Docker 的底层技术是什么?</h2><p>Docker 在 Linux 的底层技术有：Namespaces（资源隔离）、CGroups （资源限制）、UnionFS （联合文件系统）。其中：</p>
+<ul>
+<li>Namespaces（资源隔离）：将系统的全局资源通过抽象划分，使得在同一 namespace 中的进程看起来拥有自己的全局资源。主要有 Mount namespaces（文件系统挂载）、Network namespaces（网络）、User namespaces（用户）等的资源隔离。</li>
+<li>CGroups（资源限制）：对系统资源的限制，比如 CPU、内存等。</li>
+<li>UnionFS (联合文件系统)：一次同时加载多个文件系统，但从外面看起来，只能看到一个文件系统，联合加载会把各层文件系统叠加起来，这样最终的文件系统会包含所有底层的文件和目录。便于镜像的分层继承。</li>
+</ul>
+<h1 id="应用相关"><a href="#应用相关" class="headerlink" title="应用相关"></a>应用相关</h1><h2 id="1-介绍一下-docker-的网络通信"><a href="#1-介绍一下-docker-的网络通信" class="headerlink" title="1. 介绍一下 docker 的网络通信"></a>1. 介绍一下 docker 的网络通信</h2><p>首先 docker 的网络通信主要分以下几种场景：</p>
+<ol>
+<li>同主机容器间通信</li>
+<li>容器与外界主机通信</li>
+<li>外界主机与容器通信</li>
+</ol>
+</div></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">CSJerry</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://csdeng.github.io/2022/11/14/interview-docker/">https://csdeng.github.io/2022/11/14/interview-docker/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://csdeng.github.io">CSJerry's Blog</a>！</span></div></div><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/docker/">docker</a><a class="post-meta__tags" href="/tags/%E5%AE%B9%E5%99%A8%E5%8C%96%E5%BC%80%E5%8F%91/">容器化开发</a></div><nav id="pagination"><div class="next-post pull-right"><a href="/2022/09/27/useHexo/"><span>基于Github Page 使用 Hexo 搭建个人博客</span><i class="fa fa-chevron-right"></i></a></div></nav><div id="vcomment"></div><script src="https://cdn1.lncld.net/static/js/3.0.4/av-min.js"></script><script src="https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js"></script><script>var notify = 'false' == 'true';
+var verify = 'false' == 'true';
+var record_ip = 'false' == 'true';
+var GUEST_INFO = ['nick','mail','link'];
+var guest_info = 'nick,mail,link'.split(',').filter(function(item){
+  return GUEST_INFO.indexOf(item) > -1
+});
+guest_info = guest_info.length == 0 ? GUEST_INFO :guest_info;
+window.valine = new Valine({
+  el:'#vcomment',
+  notify:notify,
+  verify:verify,
+  recordIP:record_ip,
+  appId:'gAFf91kzic8vFkFqhvNA5uKP-gzGzoHsz',
+  appKey:'NAXoMosQMXwMtI6FVG31mvAb',
+  placeholder:'Just go go',
+  avatar:'mm',
+  guest_info:guest_info,
+  pageSize:'10',
+  lang: 'zh-cn'
+})</script></div></div><footer class="footer-bg" style="background-image: url(/img/my/bg.jpg)"><div class="layout" id="footer"><div class="copyright">&copy;2022 By CSJerry</div><div class="framework-info"><span>驱动 - </span><a target="_blank" rel="noopener" href="http://hexo.io"><span>Hexo</span></a><span class="footer-separator">|</span><span>主题 - </span><a target="_blank" rel="noopener" href="https://github.com/Molunerfinn/hexo-theme-melody"><span>Melody</span></a></div><div class="busuanzi"><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><span id="busuanzi_container_page_pv"><i class="fa fa-file"></i><span id="busuanzi_value_page_pv"></span><span></span></span></div></div></footer><i class="fa fa-arrow-up" id="go-up" aria-hidden="true"></i><script src="https://cdn.jsdelivr.net/npm/animejs@latest/lib/anime.min.js"></script><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@latest/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-ui-pack@latest/velocity.ui.min.js"></script><script src="/js/utils.js?version=1.9.1"></script><script src="/js/fancybox.js?version=1.9.1"></script><script src="/js/sidebar.js?version=1.9.1"></script><script src="/js/copy.js?version=1.9.1"></script><script src="/js/fireworks.js?version=1.9.1"></script><script src="/js/transition.js?version=1.9.1"></script><script src="/js/scroll.js?version=1.9.1"></script><script src="/js/head.js?version=1.9.1"></script><script type="text/x-mathjax-config">MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+    processEscapes: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+  },
+  CommonHTML: {
+    linebreaks: { automatic: true, width: "90% container" }
+  },
+  "HTML-CSS": { 
+    linebreaks: { automatic: true, width: "90% container" }
+  },
+  "SVG": { 
+    linebreaks: { automatic: true, width: "90% container" }
+  }
+});
+</script><script type="text/x-mathjax-config">MathJax.Hub.Queue(function() {
+  var all = MathJax.Hub.getAllJax(), i;
+  for (i=0; i < all.length; i += 1) {
+    all[i].SourceElement().parentNode.className += ' has-jax';
+  }
+});
+</script><script src="https://cdn.jsdelivr.net/npm/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><script>if(/Android|webOS|iPhone|iPod|iPad|BlackBerry/i.test(navigator.userAgent)) {
+  $('#nav').addClass('is-mobile')
+  $('footer').addClass('is-mobile')
+  $('#top-container').addClass('is-mobile')
+}</script></body></html>
